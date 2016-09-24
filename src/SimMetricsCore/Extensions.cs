@@ -1,21 +1,7 @@
 using SimMetricsCore.Metric;
 
-namespace SimMetricsCore.Extensions
+namespace SimMetricsCore
 {
-    public enum SimMetricType
-    {
-        BlockDistance,
-        ChapmanLengthDeviation,
-        ChapmanMeanLength,
-        CosineSimilarity,
-        EuclideanDistance,
-        JaccardSimilarity,
-        DiceSimilarity,
-        Jaro, JaroWinkler, MatchingCoefficient, MongeElkan,
-        Levenstein, NeedlemanWunch, OverlapCoefficient, QGramsDistance,
-        SmithWaterman, SmithWatermanGotoh, SmithWatermanGotohWindowedAffine
-
-    }
     public static class Extensions
     {
         public static double ApproximatelyEquals(this string firstWord, string secondWord, SimMetricType simMetricType = SimMetricType.Levenstein)
@@ -70,6 +56,9 @@ namespace SimMetricsCore.Extensions
                 case SimMetricType.SmithWatermanGotohWindowedAffine:
                     var sim17 = new SmithWatermanGotohWindowedAffine();
                     return sim17.GetSimilarity(firstWord, secondWord);
+                case SimMetricType.ChapmanMeanLength:
+                    var sim18 = new ChapmanMeanLength();
+                    return sim18.GetSimilarity(firstWord, secondWord);
                 default:
                     var sim1 = new Levenstein();
                     return sim1.GetSimilarity(firstWord, secondWord);
