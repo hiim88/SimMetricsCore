@@ -1,9 +1,22 @@
+using System.Collections.Generic;
 using SimMetricsCore.Metric;
 
 namespace SimMetricsCore
 {
     public static class Extensions
     {
+        public static List<string> ApproximatelyEquals(this List<string> list, string word, double threshold, SimMetricType simMetricType = SimMetricType.Levenstein)
+        {
+            var newList = new List<string>();
+            foreach (var l in list)
+            {
+                var num = l.ApproximatelyEquals(word, simMetricType);
+                var thr = 1 - num;
+                if (thr <= threshold)
+                    newList.Add(l);
+            }
+            return newList;
+        }
         public static double ApproximatelyEquals(this string firstWord, string secondWord, SimMetricType simMetricType = SimMetricType.Levenstein)
         {
             switch (simMetricType)
